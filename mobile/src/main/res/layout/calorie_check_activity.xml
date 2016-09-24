@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+        <com.sothree.slidinguppanel.SlidingUpPanelLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:sothree="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/sliding_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            sothree:umanoPanelHeight="0dp"
+            sothree:umanoShadowHeight="4dp">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/popup_container">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="vertical">
+               <Button
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:background="@color/colorPrimary"
+                   android:text="CALORIE ANALYSIS"
+                   android:id="@+id/cal_btn"
+                   android:textColor="@android:color/white"
+                   />
+               <android.support.v7.widget.RecyclerView
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:id="@+id/recycler_view">
+                   </android.support.v7.widget.RecyclerView>
+
+
+           </LinearLayout>
+
+
+
+        </FrameLayout>
+         <FrameLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:id="@+id/suggestions_container"
+             >
+             <android.support.v7.widget.RecyclerView
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:id="@+id/recycler_view_suggestions">
+                 </android.support.v7.widget.RecyclerView>
+         </FrameLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
