@@ -4,9 +4,11 @@ package com.healthplus.healthplus.Entity.Fragments;
  * Created by VSRK on 9/24/2016.
  */
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.location.Location;
@@ -14,6 +16,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -65,7 +68,7 @@ import java.util.Random;
 /**
  * Created by vsramkishore on 11/4/16.
  */
-public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthenticateListeners,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthenticateListeners, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private GoogleMap mMap;
     public static boolean mMapIsTouched = false;
 
@@ -73,13 +76,12 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
     public double latitude;
     boolean Is_MAP_Moveable;
     public double longitude;
-    List<LatLng> val=new ArrayList<LatLng>();
-    int MAP_ENABLED_STATE=1;
-    double totalDistance=0;
+    List<LatLng> val = new ArrayList<LatLng>();
+    int MAP_ENABLED_STATE = 1;
+    double totalDistance = 0;
     GoogleApiClient mGoogleApiClient;
     CardView card_ad;
     LocationRequest mLocationRequest;
-
 
 
     // Button zoomin,zoomout;
@@ -87,7 +89,7 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
     FloatingActionButton fab1;
     FloatingActionButton fab2;
     FloatingActionButton fab3;
-    List<LatLng> placepoints=new ArrayList<LatLng>();
+    List<LatLng> placepoints = new ArrayList<LatLng>();
 
     Animation show_fab_1;
     Animation hide_fab_1;
@@ -99,7 +101,7 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
     Button btn_submit;
     SeekBar myseekbar;
     RunAPI runAPI;
-    TextView ad_name,ad_url;
+    TextView ad_name, ad_url;
     ImageView ad_image;
 
 
@@ -107,13 +109,10 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_run_tracker);
-        card_ad=(CardView)findViewById(R.id.card_ad);
-        ad_name=(TextView)findViewById(R.id.ad_name);
-        ad_url=(TextView)findViewById(R.id.ad_url);
-        ad_image=(ImageView)findViewById(R.id.ad_image);
-
-
-
+        card_ad = (CardView) findViewById(R.id.card_ad);
+        ad_name = (TextView) findViewById(R.id.ad_name);
+        ad_url = (TextView) findViewById(R.id.ad_url);
+        ad_image = (ImageView) findViewById(R.id.ad_image);
 
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -122,13 +121,23 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
                 .addOnConnectionFailedListener(this)
                 .build();
 
-        MySupportMapFragment customMapFragment = ((MySupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map));
+        MySupportMapFragment customMapFragment = ((MySupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
         mMap = customMapFragment.getMap();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.setMyLocationEnabled(true);
-        myseekbar=(SeekBar)findViewById(R.id.mySeekBar);
-        btn_submit=(Button)findViewById(R.id.btn_submit);
+        myseekbar = (SeekBar) findViewById(R.id.mySeekBar);
+        btn_submit = (Button) findViewById(R.id.btn_submit);
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,19 +147,19 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
 
         myseekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int prevProgress;
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 int diff = progress - prevProgress;
-                if(diff > 0){
+                if (diff > 0) {
                     mMap.animateCamera(CameraUpdateFactory.zoomOut());
 
-                }
-                else{
+                } else {
                     mMap.animateCamera(CameraUpdateFactory.zoomIn());
 
                 }
                 prevProgress = progress;
-                Log.v("prog",String.valueOf(progress));
+                Log.v("prog", String.valueOf(progress));
             }
 
             @Override
@@ -165,7 +174,7 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
         });
 
 
-        FrameLayout fram_map = (FrameLayout)findViewById(R.id.fram_map);
+        FrameLayout fram_map = (FrameLayout) findViewById(R.id.fram_map);
         // Button btn_draw_State = (Button) v.findViewById(R.id.btn_draw_State);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab1 = (FloatingActionButton) findViewById(R.id.fab_1);
@@ -197,25 +206,22 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
             public void onClick(View v) {
                 Toast.makeText(RootMap.this, "Generated", Toast.LENGTH_SHORT).show();
 
-                MAP_ENABLED_STATE=1;
+                MAP_ENABLED_STATE = 1;
                 for (int i = 0; i + 1 < val.size(); i++) {
-                    double a=val.get(i).latitude;
-                    double b=val.get(i).longitude;
-                    double c=val.get(i+1).latitude;
-                    double d=val.get(i+1).longitude;
-                    totalDistance += distance(a, b,c,d);
+                    double a = val.get(i).latitude;
+                    double b = val.get(i).longitude;
+                    double c = val.get(i + 1).latitude;
+                    double d = val.get(i + 1).longitude;
+                    totalDistance += distance(a, b, c, d);
                 }
-                totalDistance/=1000;
-                Toast.makeText(RootMap.this,"Total distance (km) : "+totalDistance,Toast.LENGTH_LONG).show();
-                String destination=String.valueOf(val.get(val.size()-1).latitude+","+val.get(val.size()-1).longitude);
-                Log.v("des",destination);
-                runAPI=new RunAPI();
+                totalDistance /= 1000;
+                Toast.makeText(RootMap.this, "Total distance (km) : " + totalDistance, Toast.LENGTH_LONG).show();
+                String destination = String.valueOf(val.get(val.size() - 1).latitude + "," + val.get(val.size() - 1).longitude);
+                Log.v("des", destination);
+                runAPI = new RunAPI();
                 runAPI.setServerAuthenticateListener(RootMap.this);
 
-                runAPI.getRestaraunt(RootMap.this,String.valueOf(val.get(val.size()-1).latitude),String.valueOf(val.get(val.size()-1).longitude));
-
-
-
+                runAPI.getRestaraunt(RootMap.this, String.valueOf(val.get(val.size() - 1).latitude), String.valueOf(val.get(val.size() - 1).longitude));
 
 
                 //Intent intent=new Intent(getActivity(),CostEstimation.class);
@@ -226,7 +232,7 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
             @Override
             public void onClick(View v) {
                 Toast.makeText(RootMap.this, "You can now draw your route", Toast.LENGTH_SHORT).show();
-                MAP_ENABLED_STATE=0;
+                MAP_ENABLED_STATE = 0;
 
             }
         });
@@ -251,7 +257,6 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
                 mMap.animateCamera(CameraUpdateFactory.zoomOut());
             }
         });*/
-
 
 
         fram_map.setOnTouchListener(new View.OnTouchListener() {
@@ -295,9 +300,8 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
                     }
 
                     return true;
-                }
-                else {
-                    Log.v("nothing_enabled","nothing enabled");
+                } else {
+                    Log.v("nothing_enabled", "nothing enabled");
                 }
                 return true;
             }
@@ -308,16 +312,12 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
     }
 
 
-
-
-
     @Override
     public void onLocationChanged(Location location) {
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
-                new LatLng(location.getLatitude(), location.getLongitude()),12);
+                new LatLng(location.getLatitude(), location.getLongitude()), 12);
         mMap.animateCamera(cameraUpdate);
     }
-
 
 
     @Override
@@ -331,6 +331,16 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setInterval(1000); // Update location every second
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 mGoogleApiClient, mLocationRequest, this);
 

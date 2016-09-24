@@ -49,30 +49,31 @@ public class DataLayerListenerService extends WearableListenerService {
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
         super.onMessageReceived(messageEvent);
-        Log.d(LOG_TAG, "received a message from wear: " + messageEvent.getPath());
-        // save the new heartbeat value
-        Timer t=new Timer();
-        t.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
+        if (messageEvent.getPath().equals("healthplus")) {
+            Log.d(LOG_TAG, "received a message from wear: " + messageEvent.getPath());
+            // save the new heartbeat value
+            Timer t = new Timer();
+            t.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
 
-                time=time+1;
+                    time = time + 1;
+                }
+            }, 1000, 1000);
+
+            currentValue = Integer.parseInt(messageEvent.getData().toString());
+            Log.v("running_ok", String.valueOf(currentValue));
+
+            ContentValues values = new ContentValues();
+            values.put(WorkOutProviders.HEART_BEAT, String.valueOf(currentValue));
+            values.put(WorkOutProviders.TIME, time);
+            Uri uri = getContentResolver().insert(WorkOutProviders.CONTENT_URI, values);
+
+
+            if (handler != null) {
+                // if a handler is registered, send the value as new message
+                handler.sendEmptyMessage(currentValue);
             }
-        },1000,1000);
-
-        currentValue = Integer.parseInt(messageEvent.getPath());
-        Log.v("running_ok",String.valueOf(currentValue));
-
-        ContentValues values=new ContentValues();
-        values.put(WorkOutProviders.HEART_BEAT,String.valueOf(currentValue));
-        values.put(WorkOutProviders.TIME,time);
-        Uri uri=getContentResolver().insert(WorkOutProviders.CONTENT_URI,values);
-
-
-
-        if(handler!=null) {
-            // if a handler is registered, send the value as new message
-            handler.sendEmptyMessage(currentValue);
         }
     }
 

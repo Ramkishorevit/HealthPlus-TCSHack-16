@@ -129,7 +129,7 @@ public class HeartbeatService extends Service implements SensorEventListener {
                 if (nodes != null) {
                     for (int i=0; i<nodes.size(); i++) {
                         final Node node = nodes.get(i);
-                        Wearable.MessageApi.sendMessage(mGoogleApiClient, node.getId(), message, null);
+                        Wearable.MessageApi.sendMessage(mGoogleApiClient, node.getId(),"healthplus", message.getBytes());
                     }
                 }
             }
