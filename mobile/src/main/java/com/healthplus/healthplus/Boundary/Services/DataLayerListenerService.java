@@ -49,7 +49,7 @@ public class DataLayerListenerService extends WearableListenerService {
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
         super.onMessageReceived(messageEvent);
-        if (messageEvent.getPath().equals("healthplus")) {
+        if (messageEvent.getPath().equals("/healthplus")) {
             Log.d(LOG_TAG, "received a message from wear: " + messageEvent.getPath());
             // save the new heartbeat value
             Timer t = new Timer();
@@ -61,7 +61,8 @@ public class DataLayerListenerService extends WearableListenerService {
                 }
             }, 1000, 1000);
 
-            currentValue = Integer.parseInt(messageEvent.getData().toString());
+            String ss=new String(messageEvent.getData());
+            currentValue = Integer.parseInt(ss);
             Log.v("running_ok", String.valueOf(currentValue));
 
             ContentValues values = new ContentValues();

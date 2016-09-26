@@ -31,7 +31,7 @@ public class WorkoutAPI {
     String run_suggestion_url="http://54.254.254.88:8081/workout?q=runnin";
 
 
-    public void getRestaraunt(Context context, String lat, String lng) {
+    public void getRestaraunt(Context context) {
 
         final ProgressDialog dialog = new ProgressDialog(context);
         dialog.setMessage("Fetching suggestions..");

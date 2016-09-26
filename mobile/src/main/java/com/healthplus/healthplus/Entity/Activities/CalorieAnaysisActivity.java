@@ -19,14 +19,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.healthplus.healthplus.Boundary.API.WorkoutAPI;
 import com.healthplus.healthplus.Boundary.Managers.CaloriesProviders;
 import com.healthplus.healthplus.R;
 
 import java.util.ArrayList;
-
-/**
- * Created by VSRK on 9/24/2016.
- */
 
 public class CalorieAnaysisActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -48,6 +45,7 @@ public class CalorieAnaysisActivity extends AppCompatActivity implements LoaderM
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
         return new CursorLoader(this, Uri.parse("content://com.healthplus.healthplus.plus/diets"),new String[]{CaloriesProviders.CALORIES, CaloriesProviders.TIME},null,null,null);
 
     }
@@ -101,6 +99,8 @@ public class CalorieAnaysisActivity extends AppCompatActivity implements LoaderM
         lineChart.setPinchZoom(true);
         lineChart.setHighlightPerDragEnabled(true);
         lineChart.setHighlightPerTapEnabled(true);
+
+
 
     }
 
