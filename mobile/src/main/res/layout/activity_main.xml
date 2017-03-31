@@ -3,143 +3,254 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    android:weightSum="100"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
 <android.support.v7.widget.Toolbar
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@color/colorPrimary">
+    android:layout_height="56dp"
+    android:id="@+id/toolbar"
+    android:layout_weight="20"
+    android:background="#22252F">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <TextView
+    android:orientation="horizontal"
+    android:gravity="center"
+    >
+
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:textSize="22sp"
-        android:layout_gravity="center"
-        android:text="Welcome to the dash board !"/>
+        android:src="@drawable/log"
+        android:id="@+id/imageView" />
 </LinearLayout>
 </android.support.v7.widget.Toolbar>
-    <android.support.v7.widget.CardView
+
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:id="@+id/calorie_module"
-        app:paddingEnd="10dp"
-        app:cardBackgroundColor="@color/card_background"
-        android:layout_marginTop="15dp">
+        android:layout_height="140dp"
+        android:layout_weight="30"
+        android:background="#262C38"
+        android:id="@+id/toolbar2">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginTop="15dp"
+    android:gravity="center_horizontal|center_vertical"
     >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/tv1"
+            android:textColor="@android:color/white"
+            android:text="Welcome Back"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calorie check"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:padding="20dp"/>
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Food Name.."
-        android:paddingLeft="20dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:id="@+id/food_name"
-        android:textColor="@color/normal_text"
-        android:background="@drawable/rounded"/>
-
+        android:textSize="24sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorAccent"
+        android:text="RAM"
+        android:id="@+id/tv5" />
 </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp" />
-    </android.support.v7.widget.CardView>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="100"
+        android:layout_weight="50"
+        android:background="#22252f">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="96dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:paddingLeft="40dp"
+            android:layout_weight="20"
+            android:id="@+id/running"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/runningg"
+                android:layout_gravity="center_vertical"
+                />
+
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:text="TOTAL DISTANCE RUN"
+                android:id="@+id/tv2"
+                android:paddingLeft="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="32sp"
+                android:paddingLeft="10dp"
+                android:id="@+id/distance"
+                android:textColor="@color/colorAccent"
+                android:text="5.6"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:paddingLeft="3dp"
+                android:paddingTop="10dp"
+                android:textColor="@android:color/white"
+                android:text="Km"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:paddingLeft="40dp"
+            android:layout_weight="20"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/food"
+                android:layout_gravity="center_vertical"
+                />
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:id="@+id/tv3"
+                android:text="TOTAL CALORIE CONSUMED"
+                android:paddingLeft="23dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="32sp"
+                android:paddingLeft="10dp"
+                android:id="@+id/calcount"
+                android:textColor="@color/colorAccent"
+                android:text="1262"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:paddingLeft="3dp"
+                android:paddingTop="10dp"
+                android:visibility="gone"
+                android:textColor="@android:color/white"
+                android:text="Km"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:paddingLeft="35dp"
+            android:id="@+id/gym"
+            android:layout_weight="20"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/lifeline"
+                />
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/tv4"
+                android:textColor="@android:color/white"
+                android:text="HEART BEAT STATUS"
+                android:paddingLeft="15dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="32sp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/avg_hb"
+                android:text="81"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:paddingLeft="3dp"
+                android:paddingTop="10dp"
+                android:textColor="@android:color/white"
+                android:text="bpm"/>
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="vertical"
+    android:background="#252A35"
+    android:layout_weight="40">
+
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:orientation="vertical"
-            android:padding="8dp"
-            android:layout_marginTop="10dp">
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:id="@+id/run_module"
-                >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:layout_width="50dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/jog"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="40dp"
-                        android:textSize="20dp"
-                        android:text="Trekking"
-                        android:layout_gravity="center_vertical"/>
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:id="@+id/workout_module"
-                >
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_height="50dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:id="@+id/image_workout"
-                        android:src="@drawable/workout"
-                        android:transitionName="accept"
-
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="40dp"
-                        android:textSize="20dp"
-                        android:text="Workouts"
-                        android:layout_gravity="center_vertical"/>
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
+            android:background="#22252F">
 
         </LinearLayout>
-</LinearLayout>
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal|center_vertical"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/starttrip"
+                    android:id="@+id/workout_module"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/sos"
+                    android:id="@+id/sos"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/addfood"
+                    android:id="@+id/food_module"/>
+
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
 </LinearLayout>

@@ -45,7 +45,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
             android:paddingBottom="10dp"
-            android:src="@drawable/jog"
+            android:src="@drawable/runn"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -54,9 +54,10 @@
             android:paddingTop="20dp"
             android:textSize="12dp"
             android:textColor="#000"
-            android:id="@+id/running"
-            android:text="Running"
+            android:id="@+id/pregnancy"
+            android:text="Pregnancy"
             android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
+
 </LinearLayout>

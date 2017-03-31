@@ -1,53 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-        <com.sothree.slidinguppanel.SlidingUpPanelLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:sothree="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/sliding_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            sothree:umanoPanelHeight="0dp"
-            sothree:umanoShadowHeight="4dp">
-        <FrameLayout
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    android:weightSum="100"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/toolbar"
+        android:background="#22252F">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/popup_container">
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:orientation="vertical">
-               <Button
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:background="@color/colorPrimary"
-                   android:text="CALORIE ANALYSIS"
-                   android:id="@+id/cal_btn"
-                   android:textColor="@android:color/white"
-                   />
-               <android.support.v7.widget.RecyclerView
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:id="@+id/recycler_view">
-                   </android.support.v7.widget.RecyclerView>
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
 
 
-           </LinearLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/log"
+                android:id="@+id/imageView" />
+        </LinearLayout>
+
+           
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:background="#22252F"
+        >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="#757575"
+        android:textSize="14sp"
+        android:paddingLeft="16dp"
+        android:hint="TYPE YOUR FOOD HERE.."
+        android:textColorHint="@android:color/white"
+        android:id="@+id/food"
+        />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="16dp"
+
+                >
 
 
-
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/searchh"
+                android:id="@+id/search"
+                />
+            </LinearLayout>
         </FrameLayout>
-         <FrameLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:id="@+id/suggestions_container"
-             >
-             <android.support.v7.widget.RecyclerView
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:id="@+id/recycler_view_suggestions">
-                 </android.support.v7.widget.RecyclerView>
-         </FrameLayout>
-</com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
+</LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_view">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

@@ -11,9 +11,18 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:visibility="invisible"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/jog"
         android:layout_marginTop="10dp"/>
+    <TextView android:text="Analysing symptoms for morning sickness.."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:textSize="12sp"
+        android:layout_gravity="center"/>
     <TextView android:text="11" android:layout_width="wrap_content"
         android:id="@+id/heartbeat"
         android:layout_height="wrap_content"

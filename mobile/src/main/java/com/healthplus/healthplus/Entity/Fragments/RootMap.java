@@ -216,6 +216,13 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
                 }
                 totalDistance /= 1000;
                 Toast.makeText(RootMap.this, "Total distance (km) : " + totalDistance, Toast.LENGTH_LONG).show();
+
+                SharedPreferences preferences=getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor=preferences.edit();
+                editor.putString("distance",String.valueOf(totalDistance).substring(0,String.valueOf(totalDistance).indexOf(".")));
+                editor.commit();
+
+
                 String destination = String.valueOf(val.get(val.size() - 1).latitude + "," + val.get(val.size() - 1).longitude);
                 Log.v("des", destination);
                 runAPI = new RunAPI();
@@ -284,14 +291,17 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
                     int eventaction = event.getAction();
                     switch (eventaction) {
                         case MotionEvent.ACTION_DOWN:
+
                             // finger touches the screen
 
                             Log.v("touched_pos", String.valueOf(latitude));
                             val.add(latLng);
 
+
                         case MotionEvent.ACTION_MOVE:
                             // finger moves on the screen
                             val.add(latLng);
+
 
                         case MotionEvent.ACTION_UP:
                             // finger leaves the screen
@@ -300,7 +310,8 @@ public class RootMap extends AppCompatActivity implements RunAPI.ServerAuthentic
                     }
 
                     return true;
-                } else {
+                }
+                else {
                     Log.v("nothing_enabled", "nothing enabled");
                 }
                 return true;

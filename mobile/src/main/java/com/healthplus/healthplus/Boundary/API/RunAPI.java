@@ -29,7 +29,7 @@ public class RunAPI {
     public ServerAuthenticateListeners mServerAuthenticateListener;
 
     public static final int RUN_FETCH_CODE=1;
-    String run_suggestion_url="http://54.254.254.88:8081/weatherad?";
+    String run_suggestion_url="http://54.251.149.43/weatherad?";
 
 
     public void getRestaraunt(Context context,String lat,String lng) {

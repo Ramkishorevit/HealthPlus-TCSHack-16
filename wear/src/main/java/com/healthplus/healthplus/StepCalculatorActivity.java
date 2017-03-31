@@ -15,9 +15,9 @@ import android.widget.TextView;
  * Created by VSRK on 9/24/2016.
  */
 
-public class StepCalculatorActivity extends Activity implements StepCalculatorService.OnChangeListener {
+public class StepCalculatorActivity extends Activity implements HeartbeatService.OnChangeListener {
 
-    private static final String LOG_TAG = "Mysteps";
+    private static final String LOG_TAG = "MyHeart";
 
     private TextView mTextView;
 
@@ -35,12 +35,12 @@ public class StepCalculatorActivity extends Activity implements StepCalculatorSe
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.heartbeat);
                 // bind to our service.
-                bindService(new Intent(StepCalculatorActivity.this, StepCalculatorService.class), new ServiceConnection() {
+                bindService(new Intent(StepCalculatorActivity.this, HeartbeatService.class), new ServiceConnection() {
                     @Override
                     public void onServiceConnected(ComponentName componentName, IBinder binder) {
                         Log.d(LOG_TAG, "connected to service.");
                         // set our change listener to get change events
-                        ((StepCalculatorService.StepCalculatorServiceBinder)binder).setChangeListener(StepCalculatorActivity.this);
+                        ((HeartbeatService.HeartbeatServiceBinder)binder).setChangeListener(StepCalculatorActivity.this);
                     }
 
                     @Override
@@ -54,7 +54,6 @@ public class StepCalculatorActivity extends Activity implements StepCalculatorSe
 
     @Override
     protected void onResume() {
-
         super.onResume();
     }
 

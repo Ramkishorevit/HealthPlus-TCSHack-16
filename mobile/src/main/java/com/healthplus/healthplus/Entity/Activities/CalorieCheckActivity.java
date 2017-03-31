@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.healthplus.healthplus.Boundary.API.FoodAPI;
 import com.healthplus.healthplus.Boundary.API.RestarauntAPI;
 import com.healthplus.healthplus.Boundary.Managers.CaloriesProviders;
+import com.healthplus.healthplus.Control.Utils;
 import com.healthplus.healthplus.Entity.Actors.Food;
 import com.healthplus.healthplus.Entity.Actors.Restaraunt;
 import com.healthplus.healthplus.R;
@@ -47,14 +48,15 @@ import java.util.List;
 
 public class CalorieCheckActivity extends AppCompatActivity implements FoodAPI.ServerAuthenticateListener {
 
-    RecyclerView recyclerView,suggestions_recview;
+    RecyclerView recyclerView;
     List<Food.Data> data;
     FoodAPI foodAPI;
     RestarauntAPI restarauntAPI;
     View popupContainer,suggestionscontainer;
-    SlidingUpPanelLayout layout;
     String food_name;
     Button cal_btn;
+    ImageView search;
+    EditText food;
 
 
 
@@ -64,52 +66,31 @@ public class CalorieCheckActivity extends AppCompatActivity implements FoodAPI.S
         setContentView(R.layout.calorie_check_activity);
         init();
         setinit();
-        setdata();
+       // setdata();
     }
 
     private void init()
     {
         foodAPI=new FoodAPI();
-        restarauntAPI=new RestarauntAPI();
-        food_name=getIntent().getExtras().getString("food_name");
-        popupContainer = findViewById(R.id.popup_container);
-        cal_btn=(Button)findViewById(R.id.cal_btn);
-        suggestionscontainer=findViewById(R.id.suggestions_container);
-        layout=(SlidingUpPanelLayout)findViewById(R.id.sliding_layout);
+
+        food=(EditText)findViewById(R.id.food);
+        search=(ImageView) findViewById(R.id.search);
+
+        food_name= food.getText().toString();
         recyclerView=(RecyclerView)findViewById(R.id.recycler_view);
-        suggestions_recview=(RecyclerView)findViewById(R.id.recycler_view_suggestions);
+        food.setTypeface(new Utils().getFontType(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        suggestions_recview.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void setinit()
     {
 
-        cal_btn.setOnClickListener(new View.OnClickListener() {
+
+        search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(CalorieCheckActivity.this,CalorieAnaysisActivity.class);
-                startActivity(intent);
+                setdata();
             }
-        });
-
-
-        layout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
-            @Override
-            public void onPanelSlide(View panel, float slideOffset) {
-
-                suggestionscontainer.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-
-                if (layout.getPanelState()== SlidingUpPanelLayout.PanelState.EXPANDED)
-                {
-                    suggestionscontainer.setVisibility(View.VISIBLE);
-                }
-            }
-
         });
     }
 
@@ -150,7 +131,7 @@ public class CalorieCheckActivity extends AppCompatActivity implements FoodAPI.S
 
 
         public FoodAdapter() {
-            restarauntAPI.setServerAuthenticateListener(this);
+//            restarauntAPI.setServerAuthenticateListener(this);
         }
 
         @Override
@@ -164,10 +145,9 @@ public class CalorieCheckActivity extends AppCompatActivity implements FoodAPI.S
         public void onBindViewHolder(final FoodViewHolder holder, final int position) {
 
             holder.item_name.setText(data.get(position).getName());
-            holder.serving_type.setText("Serving Type: "+data.get(position).getServing());
-            holder.carbs.setText(data.get(position).getNutrition().getCarbs());
-            holder.fats.setText(data.get(position).getNutrition().getCholesterol());
-            holder.protiens.setText(data.get(position).getNutrition().getProtein());
+
+            holder.calories.setText(data.get(position).getNutrition().getCalories());
+
 
             holder.card_holder.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -196,7 +176,6 @@ public class CalorieCheckActivity extends AppCompatActivity implements FoodAPI.S
                         @Override
                         public void onClick(View view) {
                             if (!TextUtils.isEmpty(popup_quantity.getText().toString())) {
-                                restarauntAPI.getRestaraunt(data.get(position).getName(), CalorieCheckActivity.this);
 
                                     int cal1=Integer.parseInt(data.get(position).getNutrition().getCalories().replaceAll(",","").trim());
 
@@ -207,6 +186,9 @@ public class CalorieCheckActivity extends AppCompatActivity implements FoodAPI.S
                                     contentValues.put(CaloriesProviders.TIME, String.valueOf(Calendar.getInstance().getTime()));
                                     Uri uri=getContentResolver().insert(CaloriesProviders.CONTENT_URI,contentValues);
                                     dialog.dismiss();
+
+
+                                    Toast.makeText(CalorieCheckActivity.this,"Food item added",Toast.LENGTH_SHORT).show();
 
 
 
@@ -251,8 +233,7 @@ public class CalorieCheckActivity extends AppCompatActivity implements FoodAPI.S
         @Override
         public void onRequestCompleted(int code, List<Restaraunt> posts) {
             Log.v("tsgok","tagok");
-            layout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-            suggestions_recview.setAdapter(new SuggestionsAdapter(posts));
+
 
         }
 
@@ -304,17 +285,19 @@ public class CalorieCheckActivity extends AppCompatActivity implements FoodAPI.S
 
     private class FoodViewHolder extends RecyclerView.ViewHolder {
 
-        TextView protiens,carbs,fats,item_name,serving_type;
+        TextView item_name,calories,tv1;
         CardView card_holder;
 
         public FoodViewHolder(View itemView) {
             super(itemView);
-            this.protiens=(TextView)itemView.findViewById(R.id.protiens);
-            this.carbs=(TextView)itemView.findViewById(R.id.carbs);
-            this.fats=(TextView)itemView.findViewById(R.id.fats);
+            this.card_holder=(CardView) itemView.findViewById(R.id.card_holder);
+            this.calories=(TextView) itemView.findViewById(R.id.calories);
             this.item_name=(TextView)itemView.findViewById(R.id.item_name);
-            this.serving_type=(TextView)itemView.findViewById(R.id.serving_type);
-            this.card_holder=(CardView)itemView.findViewById(R.id.card_holder);
+            this.tv1=(TextView) itemView.findViewById(R.id.tv1);
+            tv1.setTypeface(new Utils().getFontType(CalorieCheckActivity.this));
+            calories.setTypeface(new Utils().getFontType(CalorieCheckActivity.this));
+            item_name.setTypeface(new Utils().getFontType(CalorieCheckActivity.this));
+
         }
     }
 }

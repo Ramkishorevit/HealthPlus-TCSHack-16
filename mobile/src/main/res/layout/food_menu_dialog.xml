@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="280dp"
+    android:layout_height="match_parent"
+    android:background="#262C38"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECT MODE TO ANALYZE"
+        android:textSize="12sp"
+        android:id="@+id/tv1"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:textColor="#757575"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/barcode"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan Barcode"
+            android:textSize="14sp"
+            android:id="@+id/tv2"
+            android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/manual"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log Manually"
+            android:id="@+id/tv3"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
+</LinearLayout>

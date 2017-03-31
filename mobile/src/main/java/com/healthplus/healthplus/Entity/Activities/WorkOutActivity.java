@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.healthplus.healthplus.Boundary.Services.DataLayerListenerService;
+import com.healthplus.healthplus.Control.Utils;
 import com.healthplus.healthplus.R;
 
 /**
@@ -19,7 +20,7 @@ import com.healthplus.healthplus.R;
 
 public class WorkOutActivity extends AppCompatActivity {
 
-    TextView heartbeat;
+    TextView heartbeat,tv1;
     Button workoutstate;
     Handler handler;
 
@@ -35,10 +36,16 @@ public class WorkOutActivity extends AppCompatActivity {
     private void init() {
         heartbeat = (TextView)findViewById(R.id.heartbeat_text);
         workoutstate=(Button)findViewById(R.id.workout_state);
+        tv1=(TextView)findViewById(R.id.tv1);
+        DataLayerListenerService.setHandler(handler);
     }
 
     private void setinit()
     {
+        tv1.setTypeface(new Utils().getFontType(this));
+        heartbeat.setTypeface(new Utils().getFontType(this));
+
+
         workoutstate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +68,7 @@ public class WorkOutActivity extends AppCompatActivity {
                     DataLayerListenerService.setHandler(null);
 
                     Intent intent=new Intent(WorkOutActivity.this,WorkOutAnalysisActivity.class);
+                    intent.putExtra("type","normal");
                     startActivity(intent);
 
                 }
@@ -80,12 +88,6 @@ public class WorkOutActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onPause() {
-        // unregister our handler so the service does not need to send its messages anywhere.
-        DataLayerListenerService.setHandler(null);
-        super.onPause();
-    }
 
 
 

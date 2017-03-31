@@ -23,7 +23,7 @@ public class DashBoardActivity extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub watchViewStub) {
                 mTextView = (TextView) stub.findViewById(R.id.workouts);
-                run=(TextView) stub.findViewById(R.id.running);
+                run=(TextView) stub.findViewById(R.id.pregnancy);
                 mTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

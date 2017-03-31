@@ -7,4 +7,6 @@
      app:roundLayout="@layout/round_dashboard_activity"
     app:rectLayout="@layout/round_dashboard_activity"
     tools:context=".DashBoardActivity"
-    tools:deviceIds="wear"></android.support.wearable.view.WatchViewStub>
+    tools:deviceIds="wear">
+
+</android.support.wearable.view.WatchViewStub>

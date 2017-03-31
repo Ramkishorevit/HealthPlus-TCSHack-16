@@ -1,6 +1,7 @@
 package com.healthplus.healthplus.Entity.Activities;
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -78,7 +79,7 @@ public class CalorieAnaysisActivity extends AppCompatActivity implements LoaderM
         data.moveToFirst();
        while (!data.isAfterLast())
        {
-           labels.add(data.getString(1));
+           labels.add("");
            data.moveToNext();
        }
 
@@ -88,11 +89,14 @@ public class CalorieAnaysisActivity extends AppCompatActivity implements LoaderM
         LineData data1 = new LineData(labels, dataset);
         lineChart.setData(data1);
         lineChart.setDescription("Calorie Analysis");
+        lineChart.setDescriptionColor(Color.WHITE);
         dataset.setDrawCubic(true);
         dataset.setDrawFilled(true);
-        dataset.setFillColor(getResources().getColor(R.color.orange_deep));
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS);
+        dataset.setFillColor(getResources().getColor(R.color.colorAccent));
+        lineChart.setDescriptionColor(Color.WHITE);
+        lineChart.getAxisLeft().setTextColor(Color.WHITE); // left y-axis
 
+        dataset.setDrawCircles(false);
         lineChart.highlightValue(2,2);
         lineChart.animateY(5000);
         lineChart.setClickable(true);

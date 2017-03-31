@@ -3,13 +3,14 @@
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="20dp"
-    android:background="@color/popup_bg">
+    android:background="#262C38"
+    >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Name"
-        android:textColor="@color/normal_text"
+        android:textColor="@android:color/white"
         android:id="@+id/item_name_popup"
         android:textSize="18sp"
         android:paddingLeft="20dp"
@@ -114,18 +115,30 @@
         </LinearLayout>
 
     </LinearLayout>
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Quantity"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:background="@drawable/rounded"
-        android:textColor="@color/normal_text"
-        android:inputType="number"
-        android:id="@+id/quantity_popup"
-        />
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:background="#22252F"
+        android:layout_marginTop="10dp"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="#757575"
+            android:textSize="14sp"
+            android:background="@drawable/rounded"
+            android:inputType="number"
+            android:paddingLeft="16dp"
+            android:hint="TYPE YOUR QUANTITY HERE.."
+            android:textColorHint="@android:color/white"
+            android:id="@+id/quantity_popup"
+            />
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

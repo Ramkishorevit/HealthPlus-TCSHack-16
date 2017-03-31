@@ -30,7 +30,7 @@ public class RestarauntAPI {
     public ServerAuthenticateListeners mServerAuthenticateListener;
 
     public static final int FOOD_FETCH_CODE=1;
-    String restaraunt_suggestion_url="http://gdgbasics.cloudapp.net:5000/foodad/chennai/poori";
+    String restaraunt_suggestion_url="http://54.251.149.43/foodad/poori";
 
 
     public void getRestaraunt(String item,Context context) {

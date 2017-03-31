@@ -1,6 +1,9 @@
 package com.healthplus.healthplus.Entity.Activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +24,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.healthplus.healthplus.Boundary.API.WorkoutAPI;
 import com.healthplus.healthplus.Boundary.Managers.WorkOutProviders;
+import com.healthplus.healthplus.Control.Utils;
 import com.healthplus.healthplus.Entity.Actors.Workout;
 import com.healthplus.healthplus.Entity.Fragments.RootMap;
 import com.healthplus.healthplus.R;
@@ -37,9 +41,11 @@ public class WorkOutAnalysisActivity extends AppCompatActivity implements Loader
 
     private static final int LOADER_ID = 0x01;
     LineChart lineChart;
-    TextView ad_name, ad_url;
-    ImageView ad_image;
-    CardView card_ad;
+    String type;
+    int avg;
+    TextView women_status;
+
+    int tot=0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +58,16 @@ public class WorkOutAnalysisActivity extends AppCompatActivity implements Loader
     {
 
         lineChart=(LineChart)findViewById(R.id.analysis_chart);
-        card_ad = (CardView) findViewById(R.id.card_ad);
-        ad_name = (TextView) findViewById(R.id.ad_name);
-        ad_url = (TextView) findViewById(R.id.ad_url);
-        ad_image = (ImageView) findViewById(R.id.ad_image);
+        women_status=(TextView)findViewById(R.id.women_status);
+
+        women_status.setTypeface(new Utils().getFontType(this));
+
+        type=getIntent().getExtras().getString("type");
+
+        if (type.equals("normal"))
+        {
+            women_status.setVisibility(View.GONE);
+        }
 
     }
 
@@ -90,26 +102,52 @@ public class WorkOutAnalysisActivity extends AppCompatActivity implements Loader
         int c=0;
         while (!data.isAfterLast()) {
             entries.add(new Entry(Integer.parseInt(data.getString(0)),c));
+
+            tot= Integer.parseInt(data.getString(0))+tot;
+
             c=c+1;
             data.moveToNext();
         }
 
+
+        avg=tot/entries.size();
+
+
+        if (avg>100)
+        {
+            women_status.setText("You're sick please visit the doctor immediately");
+        }
+
+        SharedPreferences preferences=getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putString("heart",String.valueOf(avg));
+        editor.commit();
+
         for (int k=0;k<entries.size();k++)
         {
-            labels.add(String.valueOf(k));
+            labels.add("");
         }
 
             LineDataSet dataset = new LineDataSet(entries,"# of Calls");
 
 
 
+        dataset.setDrawValues(false);
+
+
         LineData data1 = new LineData(labels, dataset);
         lineChart.setData(data1);
         lineChart.setDescription("Workout Analysis");
-        dataset.setDrawCubic(true);
+        lineChart.setDescriptionColor(Color.WHITE);
+        lineChart.getAxisLeft().setTextColor(Color.WHITE); // left y-axis
+
+        dataset.setDrawCubic(false);
         dataset.setDrawFilled(true);
-        dataset.setFillColor(getResources().getColor(R.color.orange_deep));
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS);
+        dataset.setDrawCircles(false);
+        dataset.setFillColor(getResources().getColor(R.color.colorAccent));
+
+        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getXAxis().setDrawGridLines(false);
 
         lineChart.highlightValue(2,2);
         lineChart.animateY(5000);
@@ -143,10 +181,7 @@ public class WorkOutAnalysisActivity extends AppCompatActivity implements Loader
     public void onRequestCompleted(int code, List<Workout> data) {
         Random r = new Random();
         int i1 = r.nextInt(data.size()-1 - 0) + 0;
-       // card_ad.setVisibility(View.VISIBLE);
-        ad_name.setText(data.get(i1).getName());
-        Picasso.with(WorkOutAnalysisActivity.this).load(data.get(i1).getImage()).into(ad_image);
-        ad_url.setText(data.get(i1).getUrl());
+
     }
 
     @Override

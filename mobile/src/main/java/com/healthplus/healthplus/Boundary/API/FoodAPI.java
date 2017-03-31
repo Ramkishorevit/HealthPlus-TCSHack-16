@@ -41,7 +41,7 @@ public class FoodAPI {
 
             mServerAuthenticateListener.onRequestInitiated(FOOD_FETCH_CODE);
 
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, FOOD_DETAILS_URL + name, new Response.Listener<String>() {
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, FOOD_DETAILS_URL + "poori", new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
 
@@ -102,6 +102,7 @@ public class FoodAPI {
         mServerAuthenticateListener = listener;
     }
 
+
     public interface ServerAuthenticateListener {
 
         void onRequestInitiated(int code);
@@ -113,4 +114,5 @@ public class FoodAPI {
         void onRequestError(int code, String message);
 
     }
+
 }

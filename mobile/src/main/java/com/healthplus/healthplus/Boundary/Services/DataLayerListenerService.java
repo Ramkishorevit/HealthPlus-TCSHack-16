@@ -65,9 +65,15 @@ public class DataLayerListenerService extends WearableListenerService {
             currentValue = Integer.parseInt(ss);
             Log.v("running_ok", String.valueOf(currentValue));
 
+            getContentResolver().delete(WorkOutProviders.CONTENT_URI, null, null);
+
+
+
             ContentValues values = new ContentValues();
             values.put(WorkOutProviders.HEART_BEAT, String.valueOf(currentValue));
             values.put(WorkOutProviders.TIME, time);
+
+
             Uri uri = getContentResolver().insert(WorkOutProviders.CONTENT_URI, values);
 
 
